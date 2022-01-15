@@ -1,38 +1,43 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-import time
+KIVY_NO_ARGS=1
+from kivy.app import App
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
+from kivy.uix.image import Image
+from kivy.uix.button import Button
+from kivy.uix.textinput import TextInput
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.maximize_window()
+class Bookie(App):
+    def build(self):
+        self._app_window = GridLayout()
+        self._app_window.cols = 1
+        self._app_window.size_hint = (0.6, 0.7)
+        self._app_window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
+        self._app_window.add_widget(Image(source="books.png"))
+        self.title_search = Label(
+                        text="Enter the title of the book you want to read",
+                        font_size=34,
+                        italic=True,
+                        color="#FFB6C1")
+        self._app_window.add_widget(self.title_search)
+        self.user = TextInput(
+                    multiline=False,
+                    padding_y=(20, 20),
+                    size_hint=(0.4, 0.3),
+                    halign="center")
+        self._app_window.add_widget(self.user)
+        self.button = Button(
+                    text="Search",
+                    size_hint=(0.4, 0.3),
+                    bold=True,
+                    background_color="#FFB6C1",
+                    background_normal="")
+        self.button.bind(on_press=self.callback)
+        self._app_window.add_widget(self.button)
 
-print("Chromedriver installed and maximized")
+        return self._app_window
 
-book_title = "Atomic Habits"
-driver.get("https://www.oceanofpdf.com")
+    def callback(self, instance):
+        self.title_search.text = "MOBI file of " + self.user.text + " has been sent to your Kindle. Happy reading!"
 
-print("Ocean of PDF webpage opened")
-
-search_bar = driver.find_element(By.ID, "searchform-1")
-search_bar.send_keys(book_title)
-search_bar.send_keys(Keys.RETURN)
-
-print("Book title searched")
-
-result = driver.find_element(By.CLASS_NAME, "entry-title-link")
-result.click()
-
-print("Search result clicked")
-
-epub = driver.find_element(By.XPATH, "//div//input[@alt='Submit' and @src='https://oceanofpdf.com/wp-content/uploads/epub-button.jpg']")
-epub.send_keys()
-epub.click()
-
-print("EPUB clicked for download")
-
-time.sleep(15)
-driver.close()
-driver.quit()
-
-print("Check downloads folder")
+if __name__ == "__main__":
+    Bookie().run()
