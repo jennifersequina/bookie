@@ -51,14 +51,13 @@ def converter():
             else:
                 print("Already exists : "+final_file_name)
 
-    # Main Driver
     if __name__ == "__main__":
         # convert any suitable files not already converted
         source_files = ([f for f in listdir(downloaded_epub) if isfile(join(downloaded_epub, f))])
         if source_files:
             convert_files()
         else:
-        print("No files to convert")
+            print("No files to convert")
 
 
 converter()

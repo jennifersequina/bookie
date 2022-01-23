@@ -5,6 +5,8 @@ from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
+from downloader import downloader
+from converter import converter
 
 class Bookie(App):
     def build(self):
@@ -14,7 +16,7 @@ class Bookie(App):
         self._app_window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
         self._app_window.add_widget(Image(source="books.png"))
         self.title_search = Label(
-                        text="Enter the title of the book you want to read",
+                        text="Enter the title and author of the book you want to read",
                         font_size=34,
                         italic=True,
                         color="#FFB6C1")
@@ -37,7 +39,8 @@ class Bookie(App):
         return self._app_window
 
     def callback(self, instance):
-        self.title_search.text = "MOBI file of " + self.user.text + " has been sent to your Kindle. Happy reading!"
+        self.title_search.text = downloader(self.user.text)
+        self.title_search.text = "MOBI file of has been sent to your Kindle. Happy reading!"
 
 if __name__ == "__main__":
     Bookie().run()

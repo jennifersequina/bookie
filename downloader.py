@@ -4,14 +4,20 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-def downloader():
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+def downloader(user_input):
+
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-ssl-errors=yes')
+    options.add_argument('--ignore-certificate-errors')
+    # options.add_argument('--headless')
+
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     driver.maximize_window()
 
     print("Chromedriver installed and maximized")
 
-    book_title = "The Seven Husbands of Evelyn Hugo"
-    driver.get("https://www.oceanofpdf.com")
+    book_title = user_input
+    driver.get("http://www.oceanofpdf.com")
 
     print("Ocean of PDF webpage opened")
 
@@ -38,4 +44,3 @@ def downloader():
 
     print("EPUB is now ready for processing")
 
-downloader()
