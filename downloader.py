@@ -4,12 +4,12 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
+
 def downloader(user_input):
 
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-ssl-errors=yes')
     options.add_argument('--ignore-certificate-errors')
-    # options.add_argument('--headless')
 
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     driver.maximize_window()
@@ -42,5 +42,4 @@ def downloader(user_input):
     driver.close()
     driver.quit()
 
-    print("EPUB is now ready for processing")
-
+    print("EPUB downloaded and is now ready for processing")

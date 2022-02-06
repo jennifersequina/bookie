@@ -3,7 +3,9 @@ from os.path import isfile, join, exists
 import subprocess
 from tqdm import tqdm
 
+
 def converter():
+
     # list of extensions that needs to be ignored
     ignored_extensions = ['pdf', 'txt']
 
@@ -51,13 +53,11 @@ def converter():
             else:
                 print("Already exists : "+final_file_name)
 
-    if __name__ == "__main__":
-        # convert any suitable files not already converted
-        source_files = ([f for f in listdir(downloaded_epub) if isfile(join(downloaded_epub, f))])
-        if source_files:
-            convert_files()
-        else:
-            print("No files to convert")
 
+    # convert any suitable files not already converted
+    source_files = ([f for f in listdir(downloaded_epub) if isfile(join(downloaded_epub, f))])
+    if source_files:
+        convert_files()
+    else:
+        print("No files to convert")
 
-converter()
