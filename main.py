@@ -39,7 +39,7 @@ class Bookie(App):
                     text="Search and Download",
                     size_hint=(0.4, 0.3),
                     bold=True,
-                    background_color="#DB7093",
+                    background_color="#FFB6C1",
                     background_normal="")
         self.button1.bind(on_press=self.download)
         self._app_window.add_widget(self.button1)
@@ -57,7 +57,7 @@ class Bookie(App):
             text="Send to Kindle",
             size_hint=(0.4, 0.3),
             bold=True,
-            background_color="#FFC0CB",
+            background_color="#FFB6C1",
             background_normal="")
         self.button3.bind(on_press=self.send)
         self._app_window.add_widget(self.button3)
@@ -67,14 +67,20 @@ class Bookie(App):
     def download(self, instance):
         self.downloaded_file_name = downloader(self.user.text)
         self.main_text.text = "EPUB is now ready for processing"
+        self.button1.background_color = "#DB7093"
+        self.button1.background_normal = ""
 
     def convert(self, instance):
         self.converted_file_name = converter()
         self.main_text.text = "File has been converted to MOBI"
+        self.button2.background_color = "#DB7093"
+        self.button2.background_normal = ""
 
     def send(self, instance):
         sendkindle(self.converted_file_name)
         self.main_text.text = "MOBI file has been sent to Kindle"
+        self.button3.background_color = "#DB7093"
+        self.button3.background_normal = ""
 
 if __name__ == "__main__":
     Bookie().run()
