@@ -5,9 +5,6 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import os
 
-'''
-sendkindle should receive a filename to send, instead of trying to pick from the directory
-'''
 
 def sendkindle(converted_file_name):
 

@@ -6,10 +6,6 @@ import time
 import glob
 import os
 
-"""
-Patrick's notes:
-- find a way to return a filename with the book from downloader that is: 'def downloader(user_input) -> str: ' returning path to the file
-"""
 
 def downloader(user_input) -> str:
 

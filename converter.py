@@ -3,23 +3,6 @@ from os.path import isfile, join
 import subprocess
 from tqdm import tqdm
 
-'''
-If variables are used only in one function, lets define them inside the function
-'''
-
-'''
-This probably can be removed after changing logic of converted 
-'''
-
-'''
-Functions should not be defined inside other function
-'''
-
-
-'''
-Patrick's note:
-We want converter to only convert selected file, and return the name of the converted file
-'''
 
 def converter() -> str:
 
