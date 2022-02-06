@@ -34,11 +34,10 @@ def sendkindle(converted_file_name):
     body = MIMEText(msg_content, 'html')
     message.attach(body)
 
-    mobi_file = converted_file_name
     file = str(converted_file_name).split('/')
     file_name = file[-1]
-    print(mobi_file)
-    mobi = MIMEApplication(open(mobi_file, 'rb').read())
+    print(converted_file_name)
+    mobi = MIMEApplication(open(converted_file_name, 'rb').read())
     mobi.add_header('Content-Disposition', 'attachment', filename=file_name)
     message.attach(mobi)
 
