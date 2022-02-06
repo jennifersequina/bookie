@@ -52,5 +52,3 @@ def sendkindle(converted_file_name):
 
     print("Email sent!")
 
-    os.remove(mobi_file)
-
