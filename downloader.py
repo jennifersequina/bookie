@@ -3,9 +3,15 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
+import glob
+import os
 
+"""
+Patrick's notes:
+- find a way to return a filename with the book from downloader that is: 'def downloader(user_input) -> str: ' returning path to the file
+"""
 
-def downloader(user_input):
+def downloader(user_input) -> str:
 
     options = webdriver.ChromeOptions()
     options.add_argument('--ignore-ssl-errors=yes')
@@ -43,3 +49,9 @@ def downloader(user_input):
     driver.quit()
 
     print("EPUB downloaded and is now ready for processing")
+
+    downloads = "/Users/jennifersequina/Downloads/*.epub"
+    downloaded_file = sorted(glob.iglob(downloads), key=os.path.getctime, reverse=True)
+    print("Path: "+str(downloaded_file))
+
+    return str(downloaded_file)

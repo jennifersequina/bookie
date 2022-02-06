@@ -3,9 +3,13 @@ import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
+import os
 
+'''
+sendkindle should receive a filename to send, instead of trying to pick from the directory
+'''
 
-def sendkindle():
+def sendkindle(converted_file_name):
 
     def read_creds():
         user = pw = ""
@@ -15,14 +19,12 @@ def sendkindle():
             pw = file[1].strip()
         return user, pw
 
-
     def read_receiver():
         receiver = ""
         with open("receiver.txt", "r") as f:
             file = f.readlines()
             receiver = file[0].strip()
         return receiver
-
 
     port = 465
 
@@ -35,12 +37,13 @@ def sendkindle():
     body = MIMEText(msg_content, 'html')
     message.attach(body)
 
-
-    mobi_path = "/Users/jennifersequina/Downloads/mobi_kindle/Loveless_-_Alice_Oseman.mobi"
-    mobi = MIMEApplication(open(mobi_path, 'rb').read())
-    mobi.add_header('Content-Disposition', 'attachment', filename="Loveless_-_Alice_Oseman.mobi")
+    mobi_file = converted_file_name
+    file = str(converted_file_name).split('/')
+    file_name = file[-1]
+    print(mobi_file)
+    mobi = MIMEApplication(open(mobi_file, 'rb').read())
+    mobi.add_header('Content-Disposition', 'attachment', filename=file_name)
     message.attach(mobi)
-
 
     context = ssl.create_default_context()
 
@@ -51,3 +54,6 @@ def sendkindle():
         server.sendmail(sender, receive, message.as_string())
 
     print("Email sent!")
+
+    os.remove(mobi_file)
+

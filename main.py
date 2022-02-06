@@ -11,6 +11,11 @@ from sendtokindle import sendkindle
 
 
 class Bookie(App):
+    def __init__(self):
+        super().__init__()
+        self.downloaded_file_name = None
+        self.converted_file_name = None
+
     def build(self):
         self._app_window = GridLayout()
         self._app_window.cols = 1
@@ -60,15 +65,15 @@ class Bookie(App):
         return self._app_window
 
     def download(self, instance):
-        downloader(self.user.text)
+        self.downloaded_file_name = downloader(self.user.text)
         self.main_text.text = "EPUB is now ready for processing"
 
     def convert(self, instance):
-        converter()
+        self.converted_file_name = converter()
         self.main_text.text = "File has been converted to MOBI"
 
     def send(self, instance):
-        sendkindle()
+        sendkindle(self.converted_file_name)
         self.main_text.text = "MOBI file has been sent to Kindle"
 
 if __name__ == "__main__":
